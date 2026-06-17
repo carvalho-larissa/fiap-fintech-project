@@ -1,0 +1,32 @@
+/* =========================================================
+   Fintech — CSS customizado (separado do HTML — critério 4)
+   IMPORTANTE: o LAYOUT agora vive nas classes Tailwind do HTML.
+   Aqui ficam só melhorias (fonte, scrollbar, acessibilidade),
+   então se este arquivo faltar, a página NÃO quebra.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --brand-dark: #15454e;   /* teal da sidebar/header */
+  --emerald:    #10b981;   /* acento da marca */
+}
+
+/* Tipografia da marca aplicada a tudo */
+* { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+/* Rolagem suave dentro do app */
+html { scroll-behavior: smooth; }
+
+/* Scrollbar discreta */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Acessibilidade: foco visível no teclado */
+:focus-visible { outline: 2px solid var(--emerald); outline-offset: 2px; }
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

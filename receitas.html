@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fintech · Cadastrar receita</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { brand: '#15454e', emerald2: '#10b981' } } } };
+  </script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="min-h-screen md:flex bg-slate-100 text-slate-900">
+
+  <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/40 z-40 hidden md:hidden"></div>
+
+  <!-- SIDEBAR: fixed (gaveta) no mobile, static no desktop -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 max-w-[80vw] shrink-0 bg-brand text-white p-4 flex flex-col overflow-y-auto -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none">
+    <div class="flex items-center justify-between mb-6">
+      <span class="text-xl font-extrabold tracking-tight">Fintech</span>
+      <button class="md:hidden text-slate-300" onclick="toggleMenu()" aria-label="Fechar menu">✕</button>
+    </div>
+    <nav class="flex-1 flex flex-col gap-1">
+      <a href="index.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors">Dashboard</a>
+      <p class="text-[11px] uppercase tracking-wider text-slate-400 px-3 mt-4 mb-1">Operações</p>
+      <a href="receitas.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold bg-emerald2 text-white">Receitas</a>
+      <a href="gastos.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors">Gastos</a>
+      <a href="dividas.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors justify-between"><span>Dívidas</span><span class="bg-white/20 text-xs px-2 py-0.5 rounded-full">3</span></a>
+      <a href="metas.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors">Metas</a>
+      <p class="text-[11px] uppercase tracking-wider text-slate-400 px-3 mt-4 mb-1">Análises</p>
+      <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors">Relatórios</a>
+      <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/10 transition-colors">Categorias</a>
+      <p class="text-[11px] uppercase tracking-wider text-slate-400 px-3 mt-4 mb-1">Contas</p>
+      <input type="text" placeholder="Buscar conta..." class="mt-1 w-full bg-[#0f343b] text-sm text-slate-200 placeholder-slate-400 rounded-lg px-3 py-2 border border-white/10 focus:outline-none" />
+    </nav>
+  </aside>
+
+  <div class="flex-1 min-w-0 flex flex-col">
+    <!-- HEADER -->
+    <header class="bg-brand text-white px-4 sm:px-6 py-3 flex items-center gap-3">
+      <button class="md:hidden" onclick="toggleMenu()" aria-label="Abrir menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <span class="md:hidden font-bold">Fintech</span>
+      <div class="flex-1 max-w-md mx-auto hidden sm:block">
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300">🔍</span>
+          <input type="text" placeholder="Buscar transações..." class="w-full bg-white/10 placeholder-slate-300 text-sm rounded-lg pl-9 pr-3 py-2 border border-white/10 focus:outline-none" />
+        </div>
+      </div>
+      <button class="relative ml-auto" aria-label="Notificações">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0a3 3 0 11-6 0"/></svg>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+      </button>
+      <div class="w-9 h-9 rounded-full bg-emerald2 flex items-center justify-center text-sm font-semibold shrink-0">LG</div>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <p class="text-xs text-slate-400 mb-1">Operações › Receitas</p>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h1 class="text-2xl font-bold">Cadastrar nova receita</h1>
+        <div class="flex gap-2">
+          <button class="px-4 py-2 text-sm font-medium border border-slate-300 rounded-lg bg-white hover:bg-slate-50">Cancelar</button>
+          <button class="px-4 py-2 text-sm font-medium rounded-lg bg-emerald2 text-white hover:opacity-90">Salvar receita</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- FORMULÁRIO -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+            <h2 class="font-semibold">Informações principais</h2>
+            <p class="text-xs text-slate-500 mb-4">Campos obrigatórios marcados com *</p>
+
+            <label class="block text-sm font-medium mb-2">Origem da renda *</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+              <label class="border-2 border-emerald2 rounded-lg px-3 py-2 flex items-center gap-2 text-sm cursor-pointer">
+                <input type="radio" name="origem" checked class="accent-emerald-500"> Salário
+              </label>
+              <label class="border border-slate-300 rounded-lg px-3 py-2 flex items-center gap-2 text-sm cursor-pointer">
+                <input type="radio" name="origem" class="accent-emerald-500"> Freelance
+              </label>
+              <label class="border border-slate-300 rounded-lg px-3 py-2 flex items-center gap-2 text-sm cursor-pointer">
+                <input type="radio" name="origem" class="accent-emerald-500"> Investimento
+              </label>
+              <label class="border border-slate-300 rounded-lg px-3 py-2 flex items-center gap-2 text-sm cursor-pointer">
+                <input type="radio" name="origem" class="accent-emerald-500"> Outros
+              </label>
+            </div>
+
+            <label class="block text-sm font-medium mb-1">Descrição *</label>
+            <input type="text" placeholder="Ex.: Salário Empresa XPTO — outubro/2025" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm mb-5 focus:border-emerald2 focus:outline-none" />
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Valor (R$) *</label>
+                <input type="text" value="5.800,00" class="w-full border-2 border-emerald2 rounded-lg px-3 py-2 text-sm focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Data de recebimento *</label>
+                <input type="date" value="2025-10-10" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-emerald2 focus:outline-none" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Recorrência</label>
+                <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white focus:border-emerald2 focus:outline-none">
+                  <option>Mensal</option><option>Única</option><option>Semanal</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+            <h2 class="font-semibold mb-4">Detalhamento adicional</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Conta destino</label>
+                <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white focus:border-emerald2 focus:outline-none">
+                  <option>Banco Itaú · Corrente · 1234-5</option><option>Nubank · 6789-0</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Categoria</label>
+                <select class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white focus:border-emerald2 focus:outline-none">
+                  <option>Renda fixa</option><option>Renda extra</option>
+                </select>
+              </div>
+            </div>
+            <label class="block text-sm font-medium mb-1">Observações</label>
+            <textarea rows="4" placeholder="Adicione informações relevantes sobre esta receita..." class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:border-emerald2 focus:outline-none"></textarea>
+          </div>
+        </div>
+
+        <!-- PRÉ-VISUALIZAÇÃO -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 h-fit">
+          <h2 class="font-semibold mb-4">Pré-visualização</h2>
+          <div class="bg-emerald2 text-white rounded-xl p-4 mb-5">
+            <p class="text-xs opacity-90">Salário</p>
+            <p class="text-3xl font-bold mt-1">R$ 5.800,00</p>
+            <p class="text-xs mt-2 opacity-90">Recebido em 10/10/2025</p>
+          </div>
+
+          <p class="text-sm font-medium mb-2">Impacto no saldo</p>
+          <div class="bg-slate-50 rounded-xl p-4 mb-5 space-y-3 text-sm">
+            <div><p class="text-slate-500 text-xs">Saldo atual</p><p class="font-semibold">R$ 12.480,55</p></div>
+            <div><p class="text-slate-500 text-xs">Após salvar</p><p class="font-semibold text-emerald-600">R$ 18.280,55</p></div>
+          </div>
+
+          <p class="text-sm font-medium mb-2">Receitas recentes</p>
+          <ul class="text-sm divide-y divide-slate-100 mb-5">
+            <li class="flex justify-between py-2"><span class="text-slate-500">Set/2025</span><span>R$ 5.800,00</span></li>
+            <li class="flex justify-between py-2"><span class="text-slate-500">Ago/2025</span><span>R$ 5.800,00</span></li>
+            <li class="flex justify-between py-2"><span class="text-slate-500">Jul/2025</span><span>R$ 5.600,00</span></li>
+          </ul>
+
+          <button class="w-full border border-slate-300 rounded-lg py-2 text-sm font-medium hover:bg-slate-50">📎 Anexar comprovante</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Gaveta do menu: desliza a sidebar e mostra/esconde o fundo escuro
+    function toggleMenu(){
+      document.getElementById('sidebar').classList.toggle('-translate-x-full');
+      document.getElementById('overlay').classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
