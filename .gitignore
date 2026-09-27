@@ -1,0 +1,16 @@
+# Java build output
+backend/out/
+*.class
+
+# IntelliJ IDEA (keep shared project files, ignore user-specific ones)
+.idea/workspace.xml
+.idea/shelf/
+**/.idea/workspace.xml
+**/.idea/shelf/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.tmp
