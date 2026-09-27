@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | ⬜ A fazer |
+| Status | ✅ Concluída |
 | Tamanho | M |
 | Depende de | T02 |
 | Bloqueia | T04, T06, T08–T12 |

@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | ⬜ A fazer |
+| Status | 🟥 Bloqueada — instalar Docker no WSL exige `sudo` da responsável |
 | Tamanho | M |
 | Depende de | T01 |
 | Bloqueia | T07 (execução), T08, T13 |

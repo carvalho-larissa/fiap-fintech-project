@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | 🟨 Em andamento |
+| Status | ✅ Concluída |
 | Tamanho | P |
 | Depende de | — |
 | Bloqueia | T02, T05 |
