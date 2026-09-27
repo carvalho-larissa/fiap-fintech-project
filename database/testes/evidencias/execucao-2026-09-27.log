@@ -1,0 +1,91 @@
+# Execução 2026-09-27 19:29:56 — modo tudo
+
+### database/ddl/00-drop-tables.sql — 1 comandos
+    Removida: T_SF_APORTE_META
+    Removida: T_SF_PARCELA
+    Removida: T_SF_INVESTIMENTO
+    Removida: T_SF_GASTO
+    Removida: T_SF_RECEITA
+    Removida: T_SF_META
+    Removida: T_SF_DIVIDA
+    Removida: T_SF_CONTA_BANCARIA
+    Removida: T_SF_CATEGORIA
+    Removida: T_SF_USUARIO
+OK: 1 comandos executados
+
+### database/ddl/01-create-tables.sql — 46 comandos
+OK: 46 comandos executados
+
+### database/dml/02-seed.sql — 45 comandos
+OK: 45 comandos executados
+
+## Estrutura do schema
+  [PASSOU] TC-E01 — tabelas T_SF_* | esperado: 10 | obtido: 10
+  [PASSOU] TC-E02 — objetos inválidos | esperado: 0 | obtido: 0
+  [PASSOU] TC-E03 — constraints PK/FK/UK sem nome gerado pelo sistema | esperado: 0 | obtido: 0
+  [PASSOU] TC-E04 — FKs no banco = FKs do dicionário (mesmos nomes) | esperado: 13 FKs | obtido: 13 FKs; divergências: nenhuma
+  [PASSOU] TC-E05 — índices IX_SF_* | esperado: 11 | obtido: 11
+  [PASSOU] TC-E06 — colunas IDENTITY | esperado: 10 | obtido: 10
+    versão: Oracle AI Database 26ai Free Release 23.26.3.0.0 - Develop, Learn, and Run for Free
+Version 23.26.3.0.0
+
+## 1. Cadastro
+  [PASSOU] TC-C01 — novo usuário válido | esperado: 1 linha; id 5; dt_cadastro hoje; ativo S | obtido: 1 linha; [(5, 'hoje', 'S')]
+  [PASSOU] TC-C02 — e-mail duplicado | esperado: ORA-00001 UK_SF_USUARIO_EMAIL | obtido: ORA-00001: unique constraint (FINTECH.UK_SF_USUARIO_EMAIL) violated on table FINTECH.T_SF_USUARIO columns (EMAIL)
+  [PASSOU] TC-C03 — conta para usuário existente | esperado: 1 linha; id 6; ativa S | obtido: 1; [(6, 'S')]
+  [PASSOU] TC-C04 — conta para usuário inexistente | esperado: ORA-02291 FK_SF_CONTA_USUARIO | obtido: ORA-02291: integrity constraint (FINTECH.FK_SF_CONTA_USUARIO) violated - parent key not found
+  [PASSOU] TC-C05 — receita válida | esperado: 1 linha; id 3; 750; 20/10/2025 | obtido: 1; [(3, 750, '20/10/2025')]
+  [PASSOU] TC-C06 — gasto válido (comprovante nulo) | esperado: 1 linha; id 7; VARIAVEL; NULL | obtido: 1; [(7, 'VARIAVEL', None)]
+  [PASSOU] TC-C07 — gasto com tipo fora do domínio ('fixo') | esperado: ORA-02290 CK_SF_GASTO_TIPO | obtido: ORA-02290: check constraint (FINTECH.CK_SF_GASTO_TIPO) violated
+  [PASSOU] TC-C07b — gasto do usuário 1 na conta do usuário 2 (D-14) | esperado: ORA-02291 FK_SF_GASTO_CONTA | obtido: ORA-02291: integrity constraint (FINTECH.FK_SF_GASTO_CONTA) violated - parent key not found
+  [PASSOU] TC-C08 — investimento válido sem vencimento | esperado: 1 linha; id 6; ATIVO; 0.0617; NULL | obtido: 1; [(6, 'ATIVO', Decimal('0.0617'), None)]
+
+## 2. Alteração
+  [PASSOU] TC-A01 — alterar usuário 4 | esperado: 1 linha; só o usuário 4 muda; senha e dt_cadastro intactos | obtido: 1 linha; linhas alteradas: [4]
+  [PASSOU] TC-A02 — alterar e-mail para um já usado | esperado: ORA-00001 UK_SF_USUARIO_EMAIL | obtido: ORA-00001: unique constraint (FINTECH.UK_SF_USUARIO_EMAIL) violated on table FINTECH.T_SF_USUARIO columns (EMAIL)
+  [PASSOU] TC-A03 — alterar receita 2 do usuário 1 | esperado: 1 linha; 1350; 04/10/2025 | obtido: 1; [(1350, '04/10/2025')]
+  [PASSOU] TC-A04 — alterar receita 2 informando usuário 2 | esperado: 0 linhas | obtido: 0 linhas
+  [PASSOU] TC-A05 — alterar gasto 3 do usuário 1 | esperado: 1 linha; só o gasto 3 muda | obtido: 1 linha; alterados [3]
+  [PASSOU] TC-A06 — alterar gasto 3 informando usuário 2 | esperado: 0 linhas | obtido: 0 linhas
+  [PASSOU] TC-A07 — resgatar investimento 1 do usuário 1 | esperado: 1 linha; RESGATADO | obtido: 1; [('RESGATADO',)]
+
+## 3. Consultas simples
+  [PASSOU] TC-S01 — usuário 1 (sem senha) | esperado: 1 linha: 1, Larissa..., larissa@exemplo.com, NULL, 01/03/2025, S; sem coluna senha | obtido: [(1, 'Larissa Gomes de Carvalho', 'larissa@exemplo.com', None, '01/03/2025', 'S')]; colunas ['id_usuario', 'nome', 'email', 'avatar', 'dt_cadastro', 'ativo']
+  [PASSOU] TC-S02 — gasto 4 do usuário 1 | esperado: (4, 1, 1, 4, Mercado extra, 412.30, 09/10/2025, VARIAVEL, NULL) | obtido: [(4, 1, 1, 4, 'Mercado extra', Decimal('412.3'), '09/10/2025', 'VARIAVEL', None)]
+  [PASSOU] TC-S03 — gasto 4 informando usuário 2 | esperado: 0 linhas | obtido: 0 linhas
+  [PASSOU] TC-S04a — investimento 2 do usuário 1 | esperado: Tesouro Selic 2029, 1500, 0.1075, 15/09/2025, 01/03/2029, ATIVO | obtido: [(2, 1, 2, 'Tesouro Selic 2029', 'TESOURO', 'Tesouro Nacional', 1500, Decimal('0.1075'), '15/09/2025', '01/03/2029', 'ATIVO')]
+  [PASSOU] TC-S04b — investimento 999 | esperado: 0 linhas | obtido: 0 linhas
+
+## 4. Consultas ordenadas
+  [PASSOU] TC-O01a — despesas do usuário 1 | esperado: [4, 3, 1, 2] | obtido: [4, 3, 1, 2]
+  [PASSOU] TC-O01b — despesas do usuário 2 | esperado: [6, 5] | obtido: [6, 5]
+  [PASSOU] TC-O01c — despesas do usuário 3 | esperado: [] | obtido: []
+  [PASSOU] TC-O02a — investimentos do usuário 1 | esperado: [3, 2, 1] | obtido: [3, 2, 1]
+  [PASSOU] TC-O02b — investimentos do usuário 3 | esperado: [5, 4] | obtido: [5, 4]
+  [PASSOU] TC-O02c — investimentos do usuário 2 | esperado: [] | obtido: []
+
+## 5. Dashboard
+  [PASSOU] TC-D01 — dashboard usuário 1 (usuário completo; empates resolvidos pelo maior ID) | esperado: 1 linha; gasto 4; investimento 3 | obtido: 1 linha(s); gasto 4; investimento 3
+  [PASSOU] TC-D02 — dashboard usuário 1 escolhe maior ID em empate de data | esperado: gasto 4 (não 3); investimento 3 (não 2) | obtido: gasto 4; investimento 3
+  [PASSOU] TC-D06b — isolamento: dados de outros usuários não vazam para o usuário 1 | esperado: gasto != 6; investimento != 5 | obtido: gasto 4; investimento 3
+    colunas do dashboard: ['id_usuario', 'nome', 'email', 'dt_cadastro', 'id_ultimo_gasto', 'descricao_ultimo_gasto', 'valor_ultimo_gasto', 'dt_ultimo_gasto', 'tipo_ultimo_gasto', 'id_ultimo_investimento', 'nm_ultimo_investimento', 'tipo_ultimo_investimento', 'vl_ultimo_investimento', 'dt_ultimo_investimento']
+  [PASSOU] TC-D03 — dashboard usuário 2 (sem investimentos) | esperado: 1 linha; gasto 6; investimento None | obtido: 1 linha(s); gasto 6; investimento None
+  [PASSOU] TC-D04 — dashboard usuário 3 (sem gastos) | esperado: 1 linha; gasto None; investimento 5 | obtido: 1 linha(s); gasto None; investimento 5
+  [PASSOU] TC-D05 — dashboard usuário 4 (sem movimentação) | esperado: 1 linha; gasto None; investimento None | obtido: 1 linha(s); gasto None; investimento None
+  [PASSOU] TC-D06 — dashboard usuário inexistente | esperado: 0 linhas | obtido: 0 linhas
+
+## Constraints do DDL (testes negativos)
+  [PASSOU] TC-K01 — valor de gasto negativo | esperado: ORA-02290 CK_SF_GASTO_VALOR | obtido: ORA-02290: check constraint (FINTECH.CK_SF_GASTO_VALOR) violated
+  [PASSOU] TC-K02 — parcela PAGA sem data de pagamento (D-15) | esperado: ORA-02290 CK_SF_PARCELA_PAGAMENTO | obtido: ORA-02290: check constraint (FINTECH.CK_SF_PARCELA_PAGAMENTO) violated
+  [PASSOU] TC-K03 — parcela PENDENTE sem data de pagamento é aceita (D-15) | esperado: aceito | obtido: 1 linha(s)
+  [PASSOU] TC-K04 — vencimento anterior à aplicação | esperado: ORA-02290 CK_SF_INVEST_DT_VENCIMENTO | obtido: ORA-02290: check constraint (FINTECH.CK_SF_INVEST_DT_VENCIMENTO) violated
+  [PASSOU] TC-K05 — e-mail sem formato válido | esperado: ORA-02290 CK_SF_USUARIO_EMAIL | obtido: ORA-02290: check constraint (FINTECH.CK_SF_USUARIO_EMAIL) violated
+  [PASSOU] TC-K06 — taxa de juros de cartão 12,99% a.m. cabe em NUMBER(5,4) como fração (D-17) | esperado: aceito | obtido: 1 linha(s)
+  [PASSOU] TC-K07 — categoria duplicada | esperado: ORA-00001 UK_SF_CATEGORIA_NOME | obtido: ORA-00001: unique constraint (FINTECH.UK_SF_CATEGORIA_NOME) violated on table FINTECH.T_SF_CATEGORIA columns (NOME, TIPO)
+  [PASSOU] TC-K08 — mesma conta cadastrada duas vezes | esperado: ORA-00001 UK_SF_CONTA_NUMERO | obtido: ORA-00001: unique constraint (FINTECH.UK_SF_CONTA_NUMERO) violated on table FINTECH.T_SF_CONTA_BANCARIA columns (ID_USUARIO, NM_BANCO, NR_CONTA)
+  [PASSOU] TC-K09 — status de investimento fora do domínio | esperado: ORA-02290 CK_SF_INVEST_STATUS | obtido: ORA-02290: check constraint (FINTECH.CK_SF_INVEST_STATUS) violated
+
+## Compatibilidade Oracle 19c (D-16) — revisão estática
+  [PASSOU] TC-V01 — nenhuma construção exclusiva do 23ai nos scripts | esperado: 0 ocorrências | obtido: 0 ocorrências 
+
+RESULTADO: 50/50 passaram

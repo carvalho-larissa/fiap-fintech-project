@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | 🟨 Escrito — verificação estática OK; aguarda execução no Oracle (T13) |
+| Status | ✅ Concluída |
 | Tamanho | P |
 | Depende de | T03 |
 | Bloqueia | T13 |
