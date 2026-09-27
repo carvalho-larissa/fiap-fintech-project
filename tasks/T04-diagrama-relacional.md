@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | ⬜ A fazer |
+| Status | ✅ Concluída |
 | Tamanho | M |
 | Depende de | T03 |
 | Bloqueia | T14 |

@@ -101,19 +101,19 @@ Tamanho: **P** ≤ 1h · **M** 1–3h · **G** > 3h
 
 | ID | Tarefa | Fase | Tam. | Depende de | Status |
 |---|---|---|---|---|---|
-| [T01](T01-preparacao-repositorio.md) | Preparação do repositório | A | P | — | 🟨 |
+| [T01](T01-preparacao-repositorio.md) | Preparação do repositório | A | P | — | ✅ |
 | [T02](T02-decisoes-tecnicas.md) | Decisões técnicas (ADR) | A | P | T01 | ✅ |
-| [T03](T03-especificacao-modelo-dados.md) | Especificação do modelo (dicionário de dados) | A | M | T02 | ⬜ |
-| [T04](T04-diagrama-relacional.md) | Atualização do diagrama relacional | B | M | T03 | ⬜ |
-| [T05](T05-ambiente-oracle.md) | Ambiente Oracle local (Docker/WSL2) | B | M | T01 | ⬜ |
-| [T06](T06-script-ddl.md) | Script DDL | B | M | T03 | ⬜ |
-| [T07](T07-massa-de-dados-teste.md) | Massa de dados de teste + resultados esperados | B | M | T06 | ⬜ |
-| [T08](T08-comandos-cadastro.md) | Comandos de cadastro (5 INSERT) | C | M | T03 | ⬜ |
-| [T09](T09-comandos-alteracao.md) | Comandos de alteração (4 UPDATE) | C | P | T03 | ⬜ |
-| [T10](T10-consultas-simples.md) | Consultas simples (3 SELECT) | C | P | T03 | ⬜ |
-| [T11](T11-consultas-ordenadas.md) | Consultas ordenadas (2 SELECT) | C | P | T03 | ⬜ |
-| [T12](T12-consulta-dashboard.md) | Consulta do dashboard (1 SELECT) | C | G | T03 | ⬜ |
-| [T13](T13-validacao-oracle.md) | Validação no Oracle + evidências (**gate**) | D | G | T05–T12 | ⬜ |
+| [T03](T03-especificacao-modelo-dados.md) | Especificação do modelo (dicionário de dados) | A | M | T02 | ✅ |
+| [T04](T04-diagrama-relacional.md) | Atualização do diagrama relacional | B | M | T03 | ✅ |
+| [T05](T05-ambiente-oracle.md) | Ambiente Oracle local (Docker/WSL2) | B | M | T01 | 🟥 aguarda `sudo` (instalar Docker) |
+| [T06](T06-script-ddl.md) | Script DDL | B | M | T03 | 🟨 escrito + verificação estática OK; falta executar no Oracle |
+| [T07](T07-massa-de-dados-teste.md) | Massa de dados de teste + resultados esperados | B | M | T06 | 🟨 escrito; falta executar no Oracle |
+| [T08](T08-comandos-cadastro.md) | Comandos de cadastro (5 INSERT) | C | M | T03 | 🟨 escrito + verificação estática OK |
+| [T09](T09-comandos-alteracao.md) | Comandos de alteração (4 UPDATE) | C | P | T03 | 🟨 escrito + verificação estática OK |
+| [T10](T10-consultas-simples.md) | Consultas simples (3 SELECT) | C | P | T03 | 🟨 escrito + verificação estática OK |
+| [T11](T11-consultas-ordenadas.md) | Consultas ordenadas (2 SELECT) | C | P | T03 | 🟨 escrito + verificação estática OK |
+| [T12](T12-consulta-dashboard.md) | Consulta do dashboard (1 SELECT) | C | G | T03 | 🟨 escrito + verificação estática OK |
+| [T13](T13-validacao-oracle.md) | Validação no Oracle + evidências (**gate**) | D | G | T05–T12 | 🟥 bloqueada por T05 |
 | [T14](T14-documento-entrega.md) | Documento de entrega (Word → PDF) | E | M | T04, T13 | ⬜ |
 | [T15](T15-documentacao-repositorio.md) | Atualização da documentação do repositório | E | P | T14 | ⬜ |
 | [T16](T16-entrega-e-versionamento.md) | PR, merge, tag e envio no portal | E | P | T15 | ⬜ |
@@ -158,22 +158,22 @@ Caminho crítico: T01 → T02 → T03 → T12 → T13 → T14 → T15 → T16.
 ## 8. Checklist de verificação da execução (gates por fase)
 
 **Fase A — Fundação**
-- [ ] PR do plano mergeado; branch `feat/sql-comandos` criada (T01)
+- [x] PR do plano mergeado; branch `feat/sql-comandos` criada (T01)
 - [x] Decisões D-01…D-17 resolvidas; nenhuma "Proposta" pendente (T02)
-- [ ] Dicionário de dados publicado, cobrindo 10 tabelas e as evoluções da Fase 3 (T03)
+- [x] Dicionário de dados publicado, cobrindo 10 tabelas e as evoluções da Fase 3 (T03)
 
 **Fase B — Modelo e banco**
-- [ ] Diagrama lógico + físico com `T_SF_INVESTIMENTO`, exportado em PNG/PDF legível (T04)
+- [x] Diagrama lógico + físico com `T_SF_INVESTIMENTO`, exportado em PNG/PDF legível (T04)
 - [ ] Oracle local no ar; usuário `fintech` conecta; nenhuma senha no git (T05)
 - [ ] DDL executa 2x seguidas sem erro; objetos `VALID`; constraints nomeadas (T06)
-- [ ] Massa carregada; `resultados-esperados.md` escrito **antes** dos testes (T07)
+- [ ] Massa carregada; `resultados-esperados.md` escrito **antes** dos testes (T07) — *script e oráculo escritos; carga pendente de T05*
 
 **Fase C — Comandos**
-- [ ] 15 comandos em `database/comandos/fintech-comandos.sql`, cada um com o título do enunciado (T08–T12)
-- [ ] `INSERT` sem coluna de ID; máscaras: texto com aspas, número sem aspas, data com `TO_DATE`
-- [ ] Todo `UPDATE` com `WHERE` pela PK (+ `id_usuario` em receita/despesa/investimento)
-- [ ] Nenhum `SELECT *`; nenhuma consulta retorna `senha`
-- [ ] Dashboard: `ROW_NUMBER`/`FETCH FIRST` + `LEFT JOIN` (sem produto cartesiano)
+- [x] 15 comandos em `database/comandos/fintech-comandos.sql`, cada um com o título do enunciado (T08–T12)
+- [x] `INSERT` sem coluna de ID; máscaras: texto com aspas, número sem aspas, data com `TO_DATE`
+- [x] Todo `UPDATE` com `WHERE` pela PK (+ `id_usuario` em receita/despesa/investimento)
+- [x] Nenhum `SELECT *`; nenhuma consulta retorna `senha`
+- [x] Dashboard: `ROW_NUMBER`/`FETCH FIRST` + `LEFT JOIN` (sem produto cartesiano)
 
 **Fase D — Validação (gate)**
 - [ ] 100% dos TC-* com **Passou** (T13)
@@ -248,3 +248,4 @@ projeto-fintech/
 |---|---|
 | 2026-09-27 | Plano criado; D-01, D-02, D-09, D-10 aprovadas |
 | 2026-09-27 | T02 concluída: D-03…D-17 decididas por boas práticas (delegado pela responsável); D-14 revisada para FK composta; D-17 criada; `decisoes-tecnicas.md` publicado |
+| 2026-09-27 | PR #1 mergeado; branch `feat/sql-comandos`. T01, T03, T04 concluídas. T06–T12 escritas e aprovadas na verificação estática (`database/testes/verificar_estatico.py`: 643 checagens, 0 falhas; teste de mutação confirma que o verificador detecta defeitos). **Parado em T05** (instalar Docker no WSL exige `sudo`). |

@@ -14,3 +14,14 @@ Thumbs.db
 desktop.ini
 ~$*
 *.tmp
+
+# Database credentials (never versioned — see database/.env.example)
+database/.env.local
+*.credentials
+.env
+.env.*
+!.env.example
+
+# Python caches (document generator)
+__pycache__/
+*.pyc
