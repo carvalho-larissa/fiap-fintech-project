@@ -1,0 +1,11 @@
+# Normaliza finais de linha no repositório (LF), convertendo no checkout do Windows quando aplicável
+* text=auto
+
+# Scripts shell SEMPRE com LF (CRLF quebra o bash: "$'\r': command not found")
+*.sh text eol=lf
+
+# Binários
+*.pdf  binary
+*.png  binary
+*.docx binary
+*.class binary
