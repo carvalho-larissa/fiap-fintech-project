@@ -56,7 +56,11 @@ Publicar `docs/05-banco-de-dados/dicionario-de-dados.md` com, para **cada tabela
 | `T_SF_META.status` | `ATIVA`, `CONCLUIDA`, `CANCELADA` |
 | `T_SF_INVESTIMENTO.tipo` / `.status` | conforme D-01 |
 
-**Regras numéricas**: todo `valor`/`vl_*` monetário `> 0` (exceto `saldo_devedor` e `vl_acumulado`: `>= 0`); `total_parcelas`/`nr_parcela` `> 0`.
+**Regras numéricas**: todo `valor`/`vl_*` monetário `> 0` (exceto `saldo_devedor` e `vl_acumulado`: `>= 0`); `total_parcelas`/`nr_parcela` `> 0`; taxas (`tx_*`) como fração decimal `>= 0` (D-17).
+
+**Integridade conta × usuário (D-14)**: `UK_T_SF_CONTA_BANCARIA_CONTA_USUARIO UNIQUE (id_conta, id_usuario)` em `T_SF_CONTA_BANCARIA`; em `T_SF_RECEITA`, `T_SF_GASTO` e `T_SF_INVESTIMENTO` a FK para conta é **composta** `(id_conta, id_usuario)` (a FK simples para `T_SF_USUARIO` é mantida).
+
+**Parcela (D-15)**: `dt_pagamento` anulável; `CHECK (status <> 'PAGA' OR dt_pagamento IS NOT NULL)`.
 
 **Colunas usadas pelos comandos desta atividade** (marcar no dicionário para rastreabilidade):
 `T_SF_USUARIO`, `T_SF_CONTA_BANCARIA`, `T_SF_RECEITA`, `T_SF_GASTO`, `T_SF_INVESTIMENTO` (+ `T_SF_CATEGORIA` como pré-requisito de FK).

@@ -34,13 +34,16 @@ Regras de escrita:
 - Índices: `IX_<TABELA>_<COLUNA>` em toda FK `id_usuario`; índice composto `(id_usuario, dt_gasto)` em gasto e `(id_usuario, dt_aplicacao)` em investimento (atende RF-13/14/15).
 - `COMMENT ON TABLE/COLUMN` ao menos para `T_SF_INVESTIMENTO` e colunas com domínio.
 - Cabeçalho do arquivo: projeto, autora, versão, data, ordem de execução.
+- FK composta `(id_conta, id_usuario)` → `T_SF_CONTA_BANCARIA(id_conta, id_usuario)` em receita, gasto e investimento, apoiada por `UNIQUE (id_conta, id_usuario)` na conta (D-14).
+- `T_SF_PARCELA.dt_pagamento` anulável + `CHECK` de consistência com `status` (D-15).
+- Taxas como fração decimal, `CHECK >= 0` (D-17).
 
 ## Critérios de aceitação
 - [ ] `00` + `01` executam sem erro **duas vezes seguidas** (idempotência)
 - [ ] `SELECT object_name, status FROM user_objects WHERE status <> 'VALID'` → 0 linhas
 - [ ] 10 tabelas em `USER_TABLES` com prefixo `T_SF_`
 - [ ] `USER_CONSTRAINTS` sem nome gerado pelo sistema (exceto NOT NULL)
-- [ ] Testes negativos: `CHECK` rejeita `tipo = 'fixo'` (minúsculo) e `valor = -1`; `UNIQUE` rejeita e-mail duplicado; FK rejeita `id_usuario` inexistente
+- [ ] Testes negativos: `CHECK` rejeita `tipo = 'fixo'` (minúsculo) e `valor = -1`; `UNIQUE` rejeita e-mail duplicado; FK rejeita `id_usuario` inexistente; FK composta rejeita gasto com `id_conta` de outro usuário (`ORA-02291`, D-14)
 - [ ] Sintaxe válida em 19c (nenhum recurso 23ai-only)
 
 ## Artefatos de saída
@@ -48,4 +51,4 @@ Regras de escrita:
 - `database/ddl/01-create-tables.sql`
 
 ## Riscos e notas
-- `NUMBER(5,4)` em `tx_juros_mensal` só aceita até 9,9999 → armazenar como fração (0,0299 = 2,99%) ou como percentual? Definir no dicionário (T03) e aplicar igual em `tx_rentabilidade`.
+- A FK composta exige que a `UNIQUE (id_conta, id_usuario)` seja criada **antes** das tabelas filhas (ordem já garantida pela sequência acima).

@@ -73,13 +73,26 @@ tabelas do projeto e **validados em um Oracle real** antes da entrega.
 
 ## 4. Decisões (detalhe em [T02](T02-decisoes-tecnicas.md))
 
-| ID | Decisão | Status |
-|---|---|---|
-| D-01 | Nova tabela `T_SF_INVESTIMENTO` | ✅ Aprovada |
-| D-02 | IDs por `IDENTITY` → `INSERT` sem coluna de ID, igual aos exemplos do enunciado | ✅ Aprovada |
-| D-09 | Validação em Oracle Free no Docker (WSL2); Oracle FIAP como plano B | ✅ Aprovada |
-| D-10 | Entrega: Word → PDF com diagrama relacional + comandos | ✅ Aprovada |
-| D-03…D-08, D-11…D-16 | Datas, domínios, senha, estilo de UPDATE, transação, desempate, dashboard, e-mail único, dt_pagamento, compatibilidade 19c | Propostas — revisar |
+Registro completo: [`docs/05-banco-de-dados/decisoes-tecnicas.md`](../docs/05-banco-de-dados/decisoes-tecnicas.md). **Todas aprovadas** (D-01, D-02, D-09, D-10 pela responsável; demais delegadas — critério: boas práticas).
+
+| ID | Decisão |
+|---|---|
+| D-01 | Nova tabela `T_SF_INVESTIMENTO` |
+| D-02 | IDs por `IDENTITY` → `INSERT` sem coluna de ID, igual aos exemplos do enunciado |
+| D-03 | Datas: `TO_DATE('[DATA]', 'DD/MM/YYYY')`; datas de sistema com `SYSDATE` |
+| D-04 | Domínios em maiúsculas, garantidos por `CHECK` |
+| D-05 | Senha só como hash; nunca retornada nem alterada pelo UPDATE de perfil |
+| D-06 | UPDATE completo das colunas editáveis; nunca PK/`id_usuario`/`senha`/datas de criação |
+| D-07 | Comandos sem `COMMIT` (transação é da aplicação) |
+| D-08 | "Mais recente" = `data DESC, id DESC` |
+| D-09 | Validação em Oracle Free no Docker (WSL2); Oracle FIAP como plano B |
+| D-10 | Entrega: Word → PDF com diagrama relacional + comandos |
+| D-11 / D-12 | Dashboard: campos definidos; 1 linha com `LEFT JOIN` mesmo sem gasto/investimento |
+| D-13 | E-mail único (`UNIQUE`) |
+| D-14 | FK composta `(id_conta, id_usuario)`: conta do lançamento pertence ao mesmo usuário |
+| D-15 | `T_SF_PARCELA.dt_pagamento` opcional |
+| D-16 | SQL compatível com Oracle 19c |
+| D-17 | Taxas como fração decimal (`0.0299` = 2,99%) |
 
 ## 5. Painel de tarefas
 
@@ -89,7 +102,7 @@ Tamanho: **P** ≤ 1h · **M** 1–3h · **G** > 3h
 | ID | Tarefa | Fase | Tam. | Depende de | Status |
 |---|---|---|---|---|---|
 | [T01](T01-preparacao-repositorio.md) | Preparação do repositório | A | P | — | 🟨 |
-| [T02](T02-decisoes-tecnicas.md) | Decisões técnicas (ADR) | A | P | T01 | 🟨 |
+| [T02](T02-decisoes-tecnicas.md) | Decisões técnicas (ADR) | A | P | T01 | ✅ |
 | [T03](T03-especificacao-modelo-dados.md) | Especificação do modelo (dicionário de dados) | A | M | T02 | ⬜ |
 | [T04](T04-diagrama-relacional.md) | Atualização do diagrama relacional | B | M | T03 | ⬜ |
 | [T05](T05-ambiente-oracle.md) | Ambiente Oracle local (Docker/WSL2) | B | M | T01 | ⬜ |
@@ -146,7 +159,7 @@ Caminho crítico: T01 → T02 → T03 → T12 → T13 → T14 → T15 → T16.
 
 **Fase A — Fundação**
 - [ ] PR do plano mergeado; branch `feat/sql-comandos` criada (T01)
-- [ ] Decisões D-03…D-16 revisadas; nenhuma "Proposta" pendente (T02)
+- [x] Decisões D-01…D-17 resolvidas; nenhuma "Proposta" pendente (T02)
 - [ ] Dicionário de dados publicado, cobrindo 10 tabelas e as evoluções da Fase 3 (T03)
 
 **Fase B — Modelo e banco**
@@ -234,3 +247,4 @@ projeto-fintech/
 | Data | Evento |
 |---|---|
 | 2026-09-27 | Plano criado; D-01, D-02, D-09, D-10 aprovadas |
+| 2026-09-27 | T02 concluída: D-03…D-17 decididas por boas práticas (delegado pela responsável); D-14 revisada para FK composta; D-17 criada; `decisoes-tecnicas.md` publicado |
