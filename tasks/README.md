@@ -114,9 +114,9 @@ Tamanho: **P** ≤ 1h · **M** 1–3h · **G** > 3h
 | [T11](T11-consultas-ordenadas.md) | Consultas ordenadas (2 SELECT) | C | P | T03 | ✅ |
 | [T12](T12-consulta-dashboard.md) | Consulta do dashboard (1 SELECT) | C | G | T03 | ✅ |
 | [T13](T13-validacao-oracle.md) | Validação no Oracle + evidências (**gate**) | D | G | T05–T12 | ✅ |
-| [T14](T14-documento-entrega.md) | Documento de entrega (Word → PDF) | E | M | T04, T13 | ⬜ |
-| [T15](T15-documentacao-repositorio.md) | Atualização da documentação do repositório | E | P | T14 | ⬜ |
-| [T16](T16-entrega-e-versionamento.md) | PR, merge, tag e envio no portal | E | P | T15 | ⬜ |
+| [T14](T14-documento-entrega.md) | Documento de entrega (Word → PDF) | E | M | T04, T13 | ✅ |
+| [T15](T15-documentacao-repositorio.md) | Atualização da documentação do repositório | E | P | T14 | ✅ |
+| [T16](T16-entrega-e-versionamento.md) | PR, merge, tag e envio no portal | E | P | T15 | 🟨 |
 
 ## 6. Grafo de dependências
 
@@ -182,8 +182,8 @@ Caminho crítico: T01 → T02 → T03 → T12 → T13 → T14 → T15 → T16.
 - [x] Evidências em `database/testes/evidencias/`
 
 **Fase E — Entrega**
-- [ ] PDF com capa, modelo relacional (lógico + físico), convenção de máscaras e 15 comandos (T14)
-- [ ] SQL do PDF ≡ `.sql` validado; sem aspas inteligentes (T14)
+- [x] PDF com capa, modelo relacional (lógico + físico), convenção de máscaras e 15 comandos (T14)
+- [x] SQL do PDF ≡ `.sql` validado; sem aspas inteligentes (T14)
 - [ ] `AGENTS.md` e `database/README.md` atualizados; dicionário ≡ DDL ≡ diagrama (T15)
 - [ ] PR mergeado, tag `fase4-comandos-sql`, PDF enviado no portal (T16)
 
@@ -248,5 +248,9 @@ projeto-fintech/
 |---|---|
 | 2026-09-27 | Plano criado; D-01, D-02, D-09, D-10 aprovadas |
 | 2026-09-27 | T02 concluída: D-03…D-17 decididas por boas práticas (delegado pela responsável); D-14 revisada para FK composta; D-17 criada; `decisoes-tecnicas.md` publicado |
-| 2026-09-27 | PR #1 mergeado; branch `feat/sql-comandos`. T01, T03, T04 concluídas. T06–T12 escritas e aprovadas na verificação estática (`database/testes/verificar_estatico.py`: 643 checagens, 0 falhas; teste de mutação confirma que o verificador detecta defeitos). **Parado em T05** (instalar Docker no WSL exige `sudo`). |
+| 2026-09-27 | PR #1 mergeado; branch `feat/sql-comandos`. T01, T03, T04 concluídas. T06–T12 escritas e aprovadas na verificação estática (`database/testes/verificar_estatico.py`: 643 checagens, 0 falhas; teste de mutação confirma que o verificador detecta defeitos). **Parado em T05** (instalar Docker no WSL exige `sudo`). |
+
 | 2026-09-27 | Docker Engine instalado no WSL (via root do WSL, sem senha). Oracle Free 23ai/26ai em container. T05–T13 concluídas: **50/50 casos passaram** (estrutura, 15 comandos, constraints, compat. 19c), execução reproduzida 2x idêntica. TC-E04 falhou na 1ª execução por erro no próprio teste (esperava 15 FKs; o modelo tem 13) — teste corrigido para comparar com o dicionário. |
+| 2026-09-27 | T14 concluída: DOCX gerado por script a partir do `.sql` validado e dos PNGs do diagrama; PDF via LibreOffice (7 páginas). Verificação automática: os 15 comandos aparecem literalmente no PDF, 0 aspas tipográficas. `.sql` reformatado para caber em A4 (tokens idênticos; Oracle 50/50 de novo). |
+| 2026-09-27 | T15 concluída: `AGENTS.md` e documentação de banco atualizados. Conferência automática dicionário × DDL × diagrama adicionada ao verificador estático; corrigida a obrigatoriedade visual de `T_SF_RECEITA.origem` no `.drawio`. Resultado: 806 verificações, 0 falhas. |
+| 2026-09-27 | T16 iniciada: PR #5 aberto para integrar T14/T15 ao `main`. Aguardando revisão final humana, merge, tag e envio no portal FIAP. |

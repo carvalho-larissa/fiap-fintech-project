@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | ⬜ A fazer |
+| Status | 🟨 Em andamento |
 | Tamanho | P |
 | Depende de | T15 |
 | Bloqueia | — (fim do plano) |
@@ -31,3 +31,7 @@ Integrar o trabalho ao `main` de forma rastreável e enviar o PDF à FIAP.
 
 ## Artefatos de saída
 - PR no GitHub · tag `fase4-comandos-sql` · comprovante de envio
+
+## Andamento
+- PR #5 aberto em 2026-09-27: `docs/documento-entrega` → `main`.
+- Aguardando revisão final da responsável e envio autenticado do PDF no portal FIAP.

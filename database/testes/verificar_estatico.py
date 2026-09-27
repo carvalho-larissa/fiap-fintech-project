@@ -2,7 +2,8 @@
 Verificação estática (sem banco) dos artefatos SQL da Fase 4.
 
 Não substitui a execução em Oracle (T13) — pega erros de contrato cedo:
-  1. DDL x dicionário de dados: mesmas tabelas, colunas, tipos e obrigatoriedade.
+  1. DDL x dicionário de dados x diagrama (.drawio, página física): mesmas tabelas,
+     colunas, tipos e obrigatoriedade.
   2. Nomes de identificadores <= 30 caracteres (compatibilidade Oracle).
   3. Comandos x DDL:
      - toda coluna referenciada existe na tabela;
@@ -124,6 +125,54 @@ for t in ddl:
 for n in nomes_objetos + list(ddl):
     check(len(n) <= 30, f"Identificador com mais de 30 caracteres: {n} ({len(n)})")
 check(len(nomes_objetos) == len(set(nomes_objetos)), "Nomes de constraint/índice duplicados")
+
+
+# ---------------------------------------------------------------------------
+# 1b. Diagrama (.drawio, página física) x DDL: mesmas tabelas, colunas, tipos e
+#     obrigatoriedade (asterisco vermelho alinhado à linha da coluna)
+# ---------------------------------------------------------------------------
+def ler_diagrama_fisico():
+    import xml.etree.ElementTree as ET
+
+    raiz = ET.parse(RAIZ / "docs/03-modelagem-de-dados/modelo-relacional.drawio").getroot()
+    pagina = [d for d in raiz.iter("diagram") if d.get("name") == "Modelo Físico"][0]
+    cells = list(pagina.iter("mxCell"))
+    filhos: dict[str, list] = {}
+    for c in cells:
+        filhos.setdefault(c.get("parent"), []).append(c)
+    geo = lambda c: c.find("mxGeometry")
+    num = lambda v: float(v) if v is not None else 0.0
+    asteriscos = [(num(geo(c).get("x")), num(geo(c).get("y"))) for c in cells if c.get("value") == "*"]
+    modelo = {}
+    for t in cells:
+        if "shape=table;" not in (t.get("style") or ""):
+            continue
+        tx, ty = num(geo(t).get("x")), num(geo(t).get("y"))
+        cols = {}
+        for linha in filhos.get(t.get("id"), []):
+            celulas = filhos.get(linha.get("id"), [])
+            if len(celulas) != 3 or not (celulas[1].get("value") or "").strip():
+                continue  # linhas de legenda PK/FK
+            nome = (celulas[1].get("value") or "").replace("\xa0", " ").strip()
+            tipo = (celulas[2].get("value") or "").strip().upper()
+            ly = ty + num(geo(linha).get("y"))
+            lh = num(geo(linha).get("height"))
+            nn = any(tx <= ax <= tx + 70 and ly - 6 <= ay <= ly + lh - 6 for ax, ay in asteriscos)
+            cols[nome] = {"tipo": tipo, "nn": nn}
+        modelo[t.get("value")] = cols
+    return modelo
+
+
+diag = ler_diagrama_fisico()
+check(set(diag) == set(ddl), f"Tabelas divergentes diagrama x DDL: {set(diag) ^ set(ddl)}")
+for t in ddl:
+    dcols, tcols = diag.get(t, {}), ddl[t]["cols"]
+    check(set(dcols) == set(tcols), f"{t}: colunas divergentes diagrama x DDL: {set(dcols) ^ set(tcols)}")
+    for c in set(dcols) & set(tcols):
+        check(dcols[c]["tipo"] == tcols[c]["tipo"],
+              f"{t}.{c}: tipo diagrama {dcols[c]['tipo']} != DDL {tcols[c]['tipo']}")
+        check(dcols[c]["nn"] == tcols[c]["nn"],
+              f"{t}.{c}: obrigatoriedade diagrama {dcols[c]['nn']} != DDL {tcols[c]['nn']}")
 
 PK = {t: next(c for c, m in v["cols"].items() if m["identity"]) for t, v in ddl.items()}
 

@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | ⬜ A fazer |
+| Status | ✅ Concluída |
 | Tamanho | P |
 | Depende de | T14 |
 | Bloqueia | T16 |
@@ -24,9 +24,9 @@ Deixar o repositório consistente com o novo estado do projeto, para que a próx
 5. *(Opcional, recomendado para a próxima fase)* Registrar em `tasks/README.md` → "Próximos passos": criar `Investimento.java`, alinhar tipos Java (`double` → `BigDecimal` para dinheiro), DAO com `PreparedStatement` usando exatamente os comandos deste entregável (as máscaras viram `?`).
 
 ## Critérios de aceitação
-- [ ] `AGENTS.md` descreve todos os diretórios e arquivos novos
-- [ ] Conferência cruzada dicionário × DDL × diagrama sem divergência
-- [ ] Nenhum link quebrado entre documentos (`tasks/`, `docs/`, `database/`)
+- [x] `AGENTS.md` descreve todos os diretórios e arquivos novos
+- [x] Conferência cruzada dicionário × DDL × diagrama sem divergência (806 verificações estáticas, 0 falhas)
+- [x] Nenhum link quebrado entre documentos (`tasks/`, `docs/`, `database/`)
 
 ## Artefatos de saída
 - `AGENTS.md`, `database/README.md`, `.gitignore` (atualizados)
