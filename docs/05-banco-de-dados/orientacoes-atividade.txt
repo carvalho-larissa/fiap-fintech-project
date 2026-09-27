@@ -1,0 +1,76 @@
+ATIVIDADE FINTECH - ORIENTAÇÕES:
+
+# Pré-requisitos técnicos:
+
+Banco de dados: utilize Oracle.
+Modelagem do banco de dados: utilize como base a modelagem previamente criada, podendo adaptá-la ou evoluí-la conforme as necessidades do seu projeto, desde que a solução permaneça dentro do tema FINTECH e represente os conceitos necessários para atender às operações solicitadas nesta atividade. 
+
+# Informações:
+
+Está chegando o momento em que o sistema Fintech, desenvolvido na linguagem Java, acessará o Banco de Dados para manipular os dados que estão lá, modelados por você na Fase 3. Mas antes de ser realizado isso, que tal montarmos os comandos que farão a manipulação dos dados? Assim, quando o Java acessar o Oracle, os comandos SQL já estarão prontinhos!
+
+IMPORTANTE: a modelagem apresentada nos itens a seguir representa os conceitos e funcionalidades esperados para o sistema, e não necessariamente entidades ou tabelas que devem existir exatamente com esses nomes.
+
+Você deverá, criar comandos para:
+
+-Cadastro
+
+Cadastrar os dados de um novo usuário.
+Cadastrar os dados da conta bancária de um usuário.
+Cadastrar os dados de uma nova receita (entrada de dinheiro) para um usuário.
+Cadastrar os dados de uma nova despesa (gasto) de um usuário.
+Cadastrar os dados de um novo investimento feito por um usuário.
+ 
+
+-Alteração
+
+Alterar os dados de um usuário (como nome, e-mail, etc.). Ou seja, atualizar os dados de um usuário a partir do seu código de referência.
+Alterar os dados de uma receita já cadastrada a partir do código da tabela. Ou seja, utilize o código do usuário e o código da receita.
+Alterar os dados de uma despesa já cadastrada; a partir do código da tabela. Ou seja, utilize o código do usuário e o código da despesa.
+Alterar os dados de um investimento já cadastrado a partir do código da tabela. Ou seja, utilize o código do usuário e o código do investimento. 
+Atenção: sempre use o código (ID) do que você quer alterar para garantir que o comando afete somente o registro correto. O ID pode ser o ID do usuário, o ID da receita etc.
+
+ 
+
+-Consultas simples
+
+Consultar os dados de um usuário específico (usando o código dele).
+Consultar os dados de uma despesa específica (usando o código do usuário e o da despesa).
+Consultar os dados de um investimento específico (com código do usuário e do investimento).
+ 
+
+-Consultas ordenadas
+
+Consultar todas as despesas de um usuário, ordenadas da mais recente à mais antiga.
+Consultar todos os investimentos de um usuário, do mais recente ao mais antigo.
+ 
+
+-Consulta para o dashboard
+
+Consultar as informações principais de um usuário, junto com a última despesa e o último investimento deste usuário.  Essa consulta deve retornar apenas uma linha, com as principais informações de um usuário, as informações de sua última despesa e as informações do seu último investimento. 
+
+
+# Instruções finais:
+
+Lembre-se de adequar os nomes das tabelas, métodos e variáveis às convenções adotadas em seu projeto. Mantenha o foco na estruturação e lógica das operações, adaptando-as às necessidades específicas do sistema FINTECH.
+
+Utilize máscaras de substituição para os valores dinâmicos nos comandos, por exemplo:
+um exemplo para o cadastro de um novo produto, no qual queremos inserir os dados para NOME do produto e VALOR do produto. Ou seja, o nome do produto é do tipo TEXTO e o valor do produto é do tipo NUMÉRICO:
+INSERT INTO produto (nm_produto, vl_produto) VALUES ('[NOME DO PRODUTO]', [VALOR DO PRODUTO]);
+
+um exemplo para o cadastro de um novo curso:
+INSERT INTO curso (nm_curso, carga_horaria, modalidade) VALUES ('[NOME DO CURSO]', [CARGA HORÁRIA], '[MODALIDADE]');
+
+consultar todos os dados de um produto já cadastrado, filtrando pelo código do produto:
+SELECT nm_produto, vl_produto FROM produto WHERE cd_produto = [CÓDIGO DE PRODUTO];
+
+em outras palavras, todos os valores do tipo TEXTO serão substituídos por: '[NOME DO CAMPO]' e todos os valores do tipo NUMÉRICO serão substituídos por: [VALOR DO CAMPO]
+Separe cada comando em seu respectivo item, por exemplo:
+cadastrar os dados de um novo curso:
+INSERT INTO curso (nm_curso, carga_horaria, modalidade) VALUES ('[NOME DO CURSO]', [CARGA HORÁRIA], '[MODALIDADE]');
+
+cadastrar os dados de um novo produto:
+INSERT INTO produto (nm_produto, vl_produto) VALUES ('[NOME DO PRODUTO]', [VALOR DO PRODUTO]);
+
+ 
+Os comandos devem ser específicos para as tabelas existentes nos documentos do projeto.
