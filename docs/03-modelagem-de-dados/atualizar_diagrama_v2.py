@@ -1,5 +1,5 @@
 """
-Atualiza o diagrama relacional da Fase 3 para a v2 (Fase 4).
+Atualiza o diagrama relacional da Fase 3 para a v2 (Fase 6).
 
 Entrada/saída: docs/03-modelagem-de-dados/modelo-relacional.drawio (editado in-place;
 o original da Fase 3 continua preservado dentro de modelagem-de-dados.pdf).
@@ -133,7 +133,7 @@ def processar(diagram, fisico: bool, prefixo: str):
     # --- 6. Títulos ---
     for c in root:
         if c.get("value") in ("Modelo Lógico", "Modelo Físico"):
-            c.set("value", c.get("value") + "<br><font style=\"font-size: 14px;\">v2 · Fase 4</font>")
+            c.set("value", c.get("value") + "<br><font style=\"font-size: 14px;\">v2 · Fase 6</font>")
 
     # --- 1. Deslocamento vertical ---
     for c in root:
@@ -142,8 +142,8 @@ def processar(diagram, fisico: bool, prefixo: str):
         g = geo(c)
         if g is None:
             continue
-        if c.get("value") in ("Modelo Lógico<br><font style=\"font-size: 14px;\">v2 · Fase 4</font>",
-                              "Modelo Físico<br><font style=\"font-size: 14px;\">v2 · Fase 4</font>",
+        if c.get("value") in ("Modelo Lógico<br><font style=\"font-size: 14px;\">v2 · Fase 6</font>",
+                              "Modelo Físico<br><font style=\"font-size: 14px;\">v2 · Fase 6</font>",
                               "Sistema Fintech (SF)"):
             continue
         if c.get("edge") == "1":

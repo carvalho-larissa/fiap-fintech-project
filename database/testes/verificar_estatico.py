@@ -1,5 +1,5 @@
 """
-Verificação estática (sem banco) dos artefatos SQL da Fase 4.
+Verificação estática (sem banco) dos artefatos SQL da Fase 6.
 
 Não substitui a execução em Oracle (T13) — pega erros de contrato cedo:
   1. DDL x dicionário de dados x diagrama (.drawio, página física): mesmas tabelas,

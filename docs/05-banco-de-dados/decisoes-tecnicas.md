@@ -1,4 +1,4 @@
-# Decisões Técnicas — Banco de Dados Fintech (Fase 4)
+# Decisões Técnicas — Banco de Dados Fintech (Fase 6)
 
 Registro de decisões de arquitetura (ADR) que orientam o modelo físico e os comandos SQL da atividade.
 Formato de cada decisão: **Contexto → Decisão → Consequências**. Decisão alterada = nova versão registrada aqui, nunca edição silenciosa.

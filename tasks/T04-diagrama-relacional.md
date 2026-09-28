@@ -1,4 +1,4 @@
-# T04 — Atualização do diagrama relacional (Fase 3 → Fase 4)
+# T04 — Atualização do diagrama relacional (Fase 3 → Fase 6)
 
 | Campo | Valor |
 |---|---|
@@ -28,7 +28,7 @@ Produzir o desenho do **modelo relacional** atualizado (lógico e físico), incl
    - relacionamentos: `T_SF_USUARIO 1 ─< N T_SF_INVESTIMENTO` e `T_SF_CONTA_BANCARIA 1 ─< N T_SF_INVESTIMENTO` (notação pé-de-galinha, igual às demais)
    - na página física: legendas `🔑 PK_T_SF_INVESTIMENTO (id_investimento)`, `🔗 FK_T_SF_USUARIO (id_usuario)`, `🔗 FK_T_SF_CONTA_BANCARIA (id_conta)`
 3. Aplicar D-15: remover o asterisco de `T_SF_PARCELA.dt_pagamento`.
-4. Atualizar os títulos para indicar a versão (ex.: "Modelo Físico — v2 (Fase 4)").
+4. Atualizar os títulos para indicar a versão (ex.: "Modelo Físico — v2 (Fase 6)").
 5. Exportar para `docs/03-modelagem-de-dados/`:
    - `modelo-logico-v2.png` e `modelo-fisico-v2.png` (escala ≥ 2x, fundo como o original)
    - `modelagem-de-dados-v2.pdf`

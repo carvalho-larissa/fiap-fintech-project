@@ -1,5 +1,5 @@
 -- =============================================================================
--- Sistema Fintech (SF) — Comandos SQL da atividade (Fase 4) — ENTREGÁVEL
+-- Sistema Fintech (SF) — Comandos SQL da atividade (Fase 6) — ENTREGÁVEL
 -- -----------------------------------------------------------------------------
 -- Comandos que a aplicação Java executará via JDBC. Máscaras:
 --   TEXTO    -> '[NOME DO CAMPO]'

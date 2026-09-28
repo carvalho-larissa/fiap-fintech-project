@@ -1,7 +1,7 @@
 -- =============================================================================
 -- Sistema Fintech (SF) — 01-create-tables.sql
 -- -----------------------------------------------------------------------------
--- Cria o modelo físico v2 (Fase 4): 10 tabelas, constraints nomeadas, índices
+-- Cria o modelo físico v2 (Fase 6): 10 tabelas, constraints nomeadas, índices
 -- e comentários. Fonte da verdade: docs/05-banco-de-dados/dicionario-de-dados.md
 --
 -- Decisões aplicadas (docs/05-banco-de-dados/decisoes-tecnicas.md):
@@ -10,7 +10,7 @@
 --   D-15 dt_pagamento opcional  D-16 sintaxe Oracle 19c   D-17 taxas em fração
 --
 -- Autora : Larissa Gomes de Carvalho — RM 571266 — 1TDSOA
--- Versão : 2.0 (Fase 4)
+-- Versão : 2.0 (Fase 6)
 -- Ordem  : 00-drop-tables.sql -> 01-create-tables.sql -> 02-seed.sql
 -- =============================================================================
 SET DEFINE OFF
@@ -247,7 +247,7 @@ COMMENT ON COLUMN T_SF_RECEITA.recorrencia         IS 'UNICA, MENSAL, ANUAL';
 COMMENT ON TABLE  T_SF_GASTO                       IS 'Saídas de dinheiro (despesas)';
 COMMENT ON COLUMN T_SF_GASTO.tipo                  IS 'FIXO ou VARIAVEL';
 
-COMMENT ON TABLE  T_SF_INVESTIMENTO                IS 'Aplicações financeiras dos usuários (novo na Fase 4)';
+COMMENT ON TABLE  T_SF_INVESTIMENTO                IS 'Aplicações financeiras dos usuários (novo na Fase 6)';
 COMMENT ON COLUMN T_SF_INVESTIMENTO.tipo           IS 'CDB, LCI, LCA, TESOURO, ACOES, FII, FUNDO, POUPANCA, CRIPTO, OUTROS';
 COMMENT ON COLUMN T_SF_INVESTIMENTO.tx_rentabilidade IS 'Rentabilidade anual em fração decimal (0.1250 = 12,5% a.a.)';
 COMMENT ON COLUMN T_SF_INVESTIMENTO.status         IS 'ATIVO, RESGATADO, VENCIDO';

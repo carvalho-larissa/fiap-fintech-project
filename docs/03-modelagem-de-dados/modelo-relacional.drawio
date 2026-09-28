@@ -1275,7 +1275,7 @@
             <mxPoint x="220" y="796" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_ScV7UzZ4k-hCOtVSPIX-283" parent="_ScV7UzZ4k-hCOtVSPIX-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#572B2B,#572B2B);strokeColor=#36393d;fontStyle=0;fontSize=24;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="Modelo Lógico&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;v2 · Fase 4&lt;/font&gt;" vertex="1">
+        <mxCell id="_ScV7UzZ4k-hCOtVSPIX-283" parent="_ScV7UzZ4k-hCOtVSPIX-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#572B2B,#572B2B);strokeColor=#36393d;fontStyle=0;fontSize=24;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="Modelo Lógico&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;v2 · Fase 6&lt;/font&gt;" vertex="1">
           <mxGeometry height="80" width="235" x="30" y="30" as="geometry" />
         </mxCell>
         <mxCell id="_ScV7UzZ4k-hCOtVSPIX-284" parent="_ScV7UzZ4k-hCOtVSPIX-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#572B2B,#572B2B);strokeColor=#36393d;fontStyle=0;fontSize=20;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="Sistema Fintech (SF)" vertex="1">
@@ -3255,7 +3255,7 @@
             <mxPoint x="220" y="796" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="k5IMCUA1qevrk84Pbc1B-283" parent="k5IMCUA1qevrk84Pbc1B-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#182E44,#182E44);strokeColor=#36393d;fontStyle=0;fontSize=24;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="Modelo Físico&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;v2 · Fase 4&lt;/font&gt;" vertex="1">
+        <mxCell id="k5IMCUA1qevrk84Pbc1B-283" parent="k5IMCUA1qevrk84Pbc1B-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#182E44,#182E44);strokeColor=#36393d;fontStyle=0;fontSize=24;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="Modelo Físico&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;v2 · Fase 6&lt;/font&gt;" vertex="1">
           <mxGeometry height="80" width="235" x="30" y="30" as="geometry" />
         </mxCell>
         <mxCell id="k5IMCUA1qevrk84Pbc1B-284" parent="k5IMCUA1qevrk84Pbc1B-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#182E44,#182E44);strokeColor=#36393d;fontStyle=0;fontSize=20;fontColor=light-dark(#FFFFFF,#FFFFFF);" value="Sistema Fintech (SF)" vertex="1">
