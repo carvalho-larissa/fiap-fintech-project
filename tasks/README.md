@@ -116,7 +116,7 @@ Tamanho: **P** ≤ 1h · **M** 1–3h · **G** > 3h
 | [T13](T13-validacao-oracle.md) | Validação no Oracle + evidências (**gate**) | D | G | T05–T12 | ✅ |
 | [T14](T14-documento-entrega.md) | Documento de entrega (Word → PDF) | E | M | T04, T13 | ✅ |
 | [T15](T15-documentacao-repositorio.md) | Atualização da documentação do repositório | E | P | T14 | ✅ |
-| [T16](T16-entrega-e-versionamento.md) | PR, merge, tag e envio no portal | E | P | T15 | 🟨 |
+| [T16](T16-entrega-e-versionamento.md) | PR, merge, tag e envio no portal | E | P | T15 | ✅ |
 
 ## 6. Grafo de dependências
 
@@ -184,8 +184,8 @@ Caminho crítico: T01 → T02 → T03 → T12 → T13 → T14 → T15 → T16.
 **Fase E — Entrega**
 - [x] PDF com capa, modelo relacional (lógico + físico), convenção de máscaras e 15 comandos (T14)
 - [x] SQL do PDF ≡ `.sql` validado; sem aspas inteligentes (T14)
-- [ ] `AGENTS.md` e `database/README.md` atualizados; dicionário ≡ DDL ≡ diagrama (T15)
-- [ ] PR mergeado, tag `fase6-comandos-sql`, PDF enviado no portal (T16)
+- [x] `AGENTS.md` e `database/README.md` atualizados; dicionário ≡ DDL ≡ diagrama (T15)
+- [x] PR mergeado, tag `fase6-comandos-sql`, PDF enviado no portal (T16)
 
 ## 9. Definição de Pronto (global)
 
@@ -254,3 +254,4 @@ projeto-fintech/
 | 2026-09-27 | T14 concluída: DOCX gerado por script a partir do `.sql` validado e dos PNGs do diagrama; PDF via LibreOffice (7 páginas). Verificação automática: os 15 comandos aparecem literalmente no PDF, 0 aspas tipográficas. `.sql` reformatado para caber em A4 (tokens idênticos; Oracle 50/50 de novo). |
 | 2026-09-27 | T15 concluída: `AGENTS.md` e documentação de banco atualizados. Conferência automática dicionário × DDL × diagrama adicionada ao verificador estático; corrigida a obrigatoriedade visual de `T_SF_RECEITA.origem` no `.drawio`. Resultado: 806 verificações, 0 falhas. |
 | 2026-09-27 | T16 iniciada: PR #5 aberto para integrar T14/T15 ao `main`. Aguardando revisão final humana, merge, tag e envio no portal FIAP. |
+| 2026-09-27 | T16 concluída: PR #6 mergeado no `main`; branches de trabalho e tag `fase4-comandos-sql` removidas; tag anotada `fase6-comandos-sql` criada no merge `bbe23f8`; PDF Fase 6 enviado ao portal FIAP, confirmado pela responsável. |
