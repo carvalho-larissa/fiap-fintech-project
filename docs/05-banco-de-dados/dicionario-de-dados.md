@@ -1,4 +1,4 @@
-# Dicionário de Dados — Sistema Fintech (SF) · v2 (Fase 4)
+# Dicionário de Dados — Sistema Fintech (SF) · v2 (Fase 6)
 
 Fonte da verdade do modelo físico Oracle. O DDL (`database/ddl/01-create-tables.sql`) e o diagrama
 (`docs/03-modelagem-de-dados/modelo-relacional.drawio`) devem ser **idênticos** a este documento.

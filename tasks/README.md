@@ -1,4 +1,4 @@
-# Plano de Tarefas — Atividade Fintech (Fase 4): Comandos SQL em Oracle
+# Plano de Tarefas — Atividade Fintech (Fase 6): Comandos SQL em Oracle
 
 > **Documento-mestre.** Use como painel de controle durante a execução: atualize a coluna
 > *Status* (seção 5) e marque o checklist (seção 8) ao fim de cada fase.
@@ -185,7 +185,7 @@ Caminho crítico: T01 → T02 → T03 → T12 → T13 → T14 → T15 → T16.
 - [x] PDF com capa, modelo relacional (lógico + físico), convenção de máscaras e 15 comandos (T14)
 - [x] SQL do PDF ≡ `.sql` validado; sem aspas inteligentes (T14)
 - [ ] `AGENTS.md` e `database/README.md` atualizados; dicionário ≡ DDL ≡ diagrama (T15)
-- [ ] PR mergeado, tag `fase4-comandos-sql`, PDF enviado no portal (T16)
+- [ ] PR mergeado, tag `fase6-comandos-sql`, PDF enviado no portal (T16)
 
 ## 9. Definição de Pronto (global)
 

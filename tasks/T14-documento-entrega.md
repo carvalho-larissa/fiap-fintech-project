@@ -23,7 +23,7 @@ Ambiente atual: **Word e LibreOffice não estão instalados** nesta máquina. O 
 **Fonte única:** os comandos colados no documento vêm de `database/comandos/fintech-comandos.sql` já validado em T13 — **nunca** redigitados à mão.
 
 Estrutura do documento:
-1. **Capa** — FIAP · Atividade Fintech (Fase 4) · Larissa Gomes de Carvalho · RM 571266 · Turma 1TDSOA · data.
+1. **Capa** — FIAP · Atividade Fintech (Fase 6) · Larissa Gomes de Carvalho · RM 571266 · Turma 1TDSOA · data.
 2. **Introdução** (curta) — objetivo da atividade e SGBD utilizado (Oracle).
 3. **Modelo relacional**
    - 3.1 Modelo lógico (imagem de T04)
@@ -37,8 +37,8 @@ Estrutura do documento:
 
 Arquivos:
 - Gerador: `docs/05-banco-de-dados/entrega/gerar_documento.py` (monta o DOCX a partir do `.sql` e das imagens → reprodutível)
-- `docs/05-banco-de-dados/entrega/Fintech-Fase4-Comandos-SQL-RM571266.docx`
-- `docs/05-banco-de-dados/entrega/Fintech-Fase4-Comandos-SQL-RM571266.pdf` ← **arquivo enviado ao portal**
+- `docs/05-banco-de-dados/entrega/Fintech-Fase6-Comandos-SQL-RM571266.docx`
+- `docs/05-banco-de-dados/entrega/Fintech-Fase6-Comandos-SQL-RM571266.pdf` ← **arquivo enviado ao portal**
 
 ## Critérios de aceitação
 - [ ] PDF abre corretamente e contém capa, diagrama(s) e os 15 comandos

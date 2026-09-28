@@ -7,7 +7,7 @@
 -- As sequences internas das colunas IDENTITY são removidas junto com a tabela.
 --
 -- Autora : Larissa Gomes de Carvalho — RM 571266 — 1TDSOA
--- Versão : 2.0 (Fase 4)
+-- Versão : 2.0 (Fase 6)
 -- Ordem  : 00-drop-tables.sql -> 01-create-tables.sql -> 02-seed.sql
 -- =============================================================================
 SET DEFINE OFF

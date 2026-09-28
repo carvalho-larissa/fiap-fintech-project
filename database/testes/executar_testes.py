@@ -1,5 +1,5 @@
 """
-Executor de scripts SQL e da suíte de testes da Fase 4 contra Oracle (T13).
+Executor de scripts SQL e da suíte de testes da Fase 6 contra Oracle (T13).
 
 - Lê credenciais de database/.env.local (fora do git).
 - Executa scripts .sql (DDL/DML) dividindo por ';' e por '/' (blocos PL/SQL).

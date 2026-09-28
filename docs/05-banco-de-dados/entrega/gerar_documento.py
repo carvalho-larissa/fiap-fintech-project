@@ -1,5 +1,5 @@
 """
-Gera o documento de entrega da Fase 4 (DOCX) e o exporta para PDF.
+Gera o documento de entrega da Fase 6 (DOCX) e o exporta para PDF.
 
 Fonte única (nada é redigitado à mão):
   - comandos SQL  : database/comandos/fintech-comandos.sql (validado no Oracle — T13)
@@ -7,8 +7,8 @@ Fonte única (nada é redigitado à mão):
   - enunciado     : títulos dos itens vêm do próprio .sql (idênticos ao enunciado)
 
 Saída:
-  docs/05-banco-de-dados/entrega/Fintech-Fase4-Comandos-SQL-RM571266.docx
-  docs/05-banco-de-dados/entrega/Fintech-Fase4-Comandos-SQL-RM571266.pdf   <- enviado ao portal
+  docs/05-banco-de-dados/entrega/Fintech-Fase6-Comandos-SQL-RM571266.docx
+  docs/05-banco-de-dados/entrega/Fintech-Fase6-Comandos-SQL-RM571266.pdf   <- enviado ao portal
 
 Uso: uv run --with python-docx --with pymupdf python docs/05-banco-de-dados/entrega/gerar_documento.py
 Requer LibreOffice (soffice) para o PDF.
@@ -36,7 +36,7 @@ IMG_LOG = RAIZ / "docs/03-modelagem-de-dados/modelo-logico-v2.png"
 IMG_FIS = RAIZ / "docs/03-modelagem-de-dados/modelo-fisico-v2.png"
 RELATORIO = RAIZ / "database/testes/evidencias/relatorio-testes.md"
 SAIDA = Path(__file__).parent
-NOME = "Fintech-Fase4-Comandos-SQL-RM571266"
+NOME = "Fintech-Fase6-Comandos-SQL-RM571266"
 
 COR_MARCA = RGBColor(0x15, 0x45, 0x4E)  # teal do protótipo (frontend)
 FONTE_TEXTO = "Calibri"
@@ -112,7 +112,7 @@ def bloco_sql(doc, sql: str):
 def rodape_com_pagina(section):
     p = section.footer.paragraphs[0]
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("Sistema Fintech · Fase 4 · RM 571266 — página ")
+    r = p.add_run("Sistema Fintech · Fase 6 · RM 571266 — página ")
     r.font.size = Pt(8)
     r.font.color.rgb = RGBColor(0x80, 0x80, 0x80)
     for tipo, texto in (("begin", None), (None, "PAGE"), ("end", None)):
@@ -263,7 +263,7 @@ def capa(doc):
     r.font.size = Pt(26)
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("Fase 4 — Comandos SQL para manipulação de dados (Oracle)")
+    r = p.add_run("Fase 6 — Comandos SQL para manipulação de dados (Oracle)")
     r.font.size = Pt(14)
     r.font.color.rgb = COR_MARCA
     for _ in range(8):
@@ -301,7 +301,7 @@ def gerar_docx(caminho: Path, comandos):
     configurar_estilos(doc)
     core = doc.core_properties
     core.author = "Larissa Gomes de Carvalho"
-    core.title = "Sistema Fintech — Fase 4 — Comandos SQL"
+    core.title = "Sistema Fintech — Fase 6 — Comandos SQL"
     core.subject = "FIAP 1TDSOA — RM 571266"
 
     capa(doc)
@@ -334,7 +334,7 @@ def gerar_docx(caminho: Path, comandos):
         p.add_run().add_picture(str(img), width=Cm(17))
         legenda = doc.add_paragraph()
         legenda.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r = legenda.add_run(f"Figura {titulo[:3]} — {titulo[4:]} (v2, Fase 4). "
+        r = legenda.add_run(f"Figura {titulo[:3]} — {titulo[4:]} (v2, Fase 6). "
                             "Asterisco vermelho = coluna obrigatória.")
         r.italic = True
         r.font.size = Pt(9)
