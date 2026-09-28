@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | 🟨 Em andamento |
+| Status | ✅ Concluída |
 | Tamanho | P |
 | Depende de | T15 |
 | Bloqueia | — (fim do plano) |
@@ -24,14 +24,15 @@ Integrar o trabalho ao `main` de forma rastreável e enviar o PDF à FIAP.
 6. Enviar o PDF de T14 no portal FIAP; registrar data/hora do envio em `tasks/README.md`.
 
 ## Critérios de aceitação
-- [ ] PR mergeado no `main`, branch remota removida
-- [ ] Tag `fase6-comandos-sql` no GitHub apontando para o commit do merge
-- [ ] PDF enviado no portal e envio registrado
-- [ ] Todos os status do painel em `tasks/README.md` = ✅
+- [x] PRs #2, #3, #5 e #6 mergeados no `main`; branches remotas de trabalho removidas
+- [x] Tag `fase6-comandos-sql` no GitHub apontando para o merge do PR #6 (`bbe23f8`)
+- [x] PDF enviado no portal FIAP em 2026-09-27 (confirmação da responsável)
+- [x] Todos os status do painel em `tasks/README.md` = ✅
 
 ## Artefatos de saída
 - PR no GitHub · tag `fase6-comandos-sql` · comprovante de envio
 
-## Andamento
-- PR #5 aberto em 2026-09-27: `docs/documento-entrega` → `main`.
-- Aguardando revisão final da responsável e envio autenticado do PDF no portal FIAP.
+## Encerramento
+- PR #6, com a correção de identificação para Fase 6, foi mergeado no `main` em 2026-09-28 UTC.
+- A tag anotada `fase6-comandos-sql` aponta para o commit de merge `bbe23f8`.
+- O PDF foi enviado ao portal FIAP em 2026-09-27, confirmado pela responsável.
