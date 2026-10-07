@@ -25,3 +25,6 @@ database/.env.local
 # Python caches (document generator)
 __pycache__/
 *.pyc
+
+# Credenciais de conexao do backend (modelo: backend/db.properties.example)
+backend/db.properties

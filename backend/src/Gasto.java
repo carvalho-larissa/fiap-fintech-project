@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Gasto {
@@ -5,23 +6,37 @@ public class Gasto {
     private int idGasto;
     private int idUsuario;
     private int idConta;
+    private int idCategoria;
     private String descricao;
-    private double valor;
+    private BigDecimal valor;
     private LocalDate dtGasto;
-    private String tipo; // "Fixo" ou "Variavel"
+    private String tipo; // "FIXO" ou "VARIAVEL" (o DAO normaliza "Fixo", "Variável" etc.)
+    private String comprovante;
 
     // Construtor padrão
     public Gasto() {
     }
 
     // Construtor com parâmetros
-    public Gasto(int idGasto, int idUsuario, String descricao, double valor, String tipo) {
+    public Gasto(int idGasto, int idUsuario, String descricao, BigDecimal valor, String tipo) {
         this.idGasto = idGasto;
         this.idUsuario = idUsuario;
         this.descricao = descricao;
         this.valor = valor;
         this.tipo = tipo;
         this.dtGasto = LocalDate.now();
+    }
+
+    // Construtor completo para cadastro (o id é gerado pelo banco)
+    public Gasto(int idUsuario, int idConta, int idCategoria, String descricao, BigDecimal valor,
+                 LocalDate dtGasto, String tipo) {
+        this.idUsuario = idUsuario;
+        this.idConta = idConta;
+        this.idCategoria = idCategoria;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.dtGasto = dtGasto;
+        this.tipo = tipo;
     }
 
     // Getters e Setters
@@ -49,6 +64,14 @@ public class Gasto {
         this.idConta = idConta;
     }
 
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -57,11 +80,11 @@ public class Gasto {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
@@ -79,6 +102,14 @@ public class Gasto {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getComprovante() {
+        return comprovante;
+    }
+
+    public void setComprovante(String comprovante) {
+        this.comprovante = comprovante;
     }
 
     // Métodos de negócio

@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Main {
@@ -23,7 +24,7 @@ public class Main {
         receita.calcularTotalReceitas();
 
         System.out.println("\n===== GASTO =====");
-        Gasto gasto = new Gasto(1, usuario.getIdUsuario(), "Aluguel apartamento", 1850.00, "Fixo");
+        Gasto gasto = new Gasto(1, usuario.getIdUsuario(), "Aluguel apartamento", new BigDecimal("1850.00"), "Fixo");
         gasto.registrarGasto();
         gasto.categorizarGasto();
         gasto.calcularImpactoNoSaldo();
