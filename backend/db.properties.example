@@ -1,0 +1,11 @@
+# Copie para db.properties (ignorado pelo git) e preencha. Alternativa: variáveis de ambiente
+# DB_URL, DB_USER e DB_PASSWORD.
+#
+# Oracle FIAP (confirmar host/porta/SID no portal ou com o professor):
+#   url=jdbc:oracle:thin:@HOST:1521:SID
+#   user=RM000000
+# Oracle local (Docker, ver database/README.md):
+#   url=jdbc:oracle:thin:@//localhost:1521/FREEPDB1
+url=
+user=
+password=

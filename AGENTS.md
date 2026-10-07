@@ -15,9 +15,10 @@ Prioridade do MVP (definida na especificação de requisitos):
 1. Cadastro de perfil → 2. Receitas → 3. Gastos → 4. Metas → 5. Dívidas
 
 Estado atual: documentação de análise concluída, protótipo front-end estático
-(HTML + Tailwind), modelo de domínio em Java (métodos de negócio ainda são stubs)
-e camada de dados Oracle validada localmente. Ainda **não há** persistência, API
-nem integração front ↔ back; a próxima fase é Java + JDBC/DAO.
+(HTML + Tailwind), modelo de domínio em Java (métodos de negócio ainda são stubs),
+camada de dados Oracle validada (local e na instância da FIAP) e, desde a Fase 7,
+**persistência via JDBC/DAO** para Usuario, Gasto e Investimento (mais Conta e
+Categoria como apoio). Ainda **não há** API nem integração front ↔ back.
 
 ## Estrutura
 
@@ -36,8 +37,10 @@ projeto-fintech/
 │   │   ├── modelo-logico-v2.png            # exportação do modelo lógico v2
 │   │   ├── modelo-fisico-v2.png            # exportação do modelo físico v2
 │   │   └── modelagem-de-dados-v2.pdf       # modelos lógico e físico v2
-│   └── 04-prototipos-interface/
-│       └── interfaces.pdf                  # 5 telas do protótipo (dashboard, receitas, gastos, dívidas, metas)
+│   ├── 04-prototipos-interface/
+│   │   └── interfaces.pdf                  # 5 telas do protótipo (dashboard, receitas, gastos, dívidas, metas)
+│   └── 06-java-jdbc/
+│       └── evidencias/execucao-teste-fiap.md   # saída do Teste na instância Oracle da FIAP (Fase 7)
 ├── database/                               # camada de dados Oracle (Fase 6)
 │   ├── ddl/00-drop-tables.sql              # limpeza idempotente do schema
 │   ├── ddl/01-create-tables.sql            # 10 tabelas, constraints, índices e comentários
@@ -48,7 +51,8 @@ projeto-fintech/
 │   └── README.md                           # execução, ambiente e armadilhas conhecidas
 ├── tasks/                                  # plano e evidências de execução da Fase 6
 │   ├── README.md                           # painel, decisões e checklist
-│   └── T01-…T16-*.md                       # especificação e aceite de cada tarefa
+│   ├── T01-…T16-*.md                       # especificação e aceite de cada tarefa
+│   └── fase7/README.md                     # plano e andamento da Fase 7 (DAO + JDBC, J01–J13)
 ├── frontend/                  # protótipo estático, sem build
 │   ├── index.html             # Dashboard (saldo, fluxo de caixa, categorias, últimas transações)
 │   ├── receitas.html          # Cadastro de receita
@@ -56,46 +60,63 @@ projeto-fintech/
 │   ├── dividas.html           # Gestão de dívidas
 │   ├── metas.html             # Metas financeiras
 │   └── css/styles.css         # CSS customizado (fonte Inter, scrollbar, foco, reduced-motion)
-└── backend/                   # modelo de domínio em Java (projeto IntelliJ "metodos-em-java")
+└── backend/                   # Java 21 + JDBC (projeto IntelliJ "metodos-em-java")
     ├── metodos-em-java.iml
     ├── .idea/                 # config do IntelliJ (workspace.xml é local e ignorado pelo git)
+    ├── lib/ojdbc11.jar        # driver JDBC Oracle (versionado de propósito; ver lib/README.md)
+    ├── db.properties.example  # modelo da conexão; o db.properties real é ignorado pelo git
     └── src/                   # pacote default
         ├── Main.java          # demonstração: instancia cada entidade e chama seus métodos
+        ├── Teste.java         # teste dos DAOs: 5 inserts por entidade + getAll() + cenários de erro
         ├── Usuario.java       # cadastrarUsuario, validarEmail, atualizarPerfil
         ├── ContaBancaria.java # vincularConta, consultarSaldo, desativarConta
         ├── Receita.java       # registrarReceita, editarReceita, calcularTotalReceitas
         ├── Gasto.java         # registrarGasto, categorizarGasto, calcularImpactoNoSaldo
+        ├── Investimento.java  # registrarInvestimento, calcularRendimentoEstimado, resgatarInvestimento
+        ├── Categoria.java     # entidade de apoio (T_SF_CATEGORIA)
         ├── Divida.java        # registrarParcelaAtraso, calcularJuros, exibirAlertaVencimento
-        └── Meta.java          # criarMeta, registrarAporte, calcularProgresso, validarOrcamentoDisponivel
+        ├── Meta.java          # criarMeta, registrarAporte, calcularProgresso, validarOrcamentoDisponivel
+        ├── UsuarioDAO.java, GastoDAO.java, InvestimentoDAO.java   # insert() e getAll() (Fase 7)
+        ├── ContaBancariaDAO.java, CategoriaDAO.java               # DAOs de apoio às chaves estrangeiras
+        ├── ConnectionFactory.java  # abre a conexão (DB_URL/DB_USER/DB_PASSWORD ou db.properties)
+        ├── DaoException.java       # traduz erros ORA-xxxxx em mensagens claras
+        ├── Dominios.java           # normaliza domínios ("Variável" -> VARIAVEL, D-04)
+        └── JdbcUtil.java           # LocalDate <-> java.sql.Date
 ```
 
 ## Rastreabilidade (requisito → dados → código → tela)
 
 | User Story            | Tabela(s)                          | Classe Java     | Tela             |
 |-----------------------|------------------------------------|-----------------|------------------|
-| 1. Cadastro de perfil | T_SF_USUARIO, T_SF_CONTA_BANCARIA  | Usuario, ContaBancaria | —         |
-| 2. Receitas           | T_SF_RECEITA, T_SF_CATEGORIA       | Receita         | receitas.html    |
-| 3. Gastos             | T_SF_GASTO, T_SF_CATEGORIA         | Gasto           | gastos.html      |
+| 1. Cadastro de perfil | T_SF_USUARIO, T_SF_CONTA_BANCARIA  | Usuario + UsuarioDAO, ContaBancaria + ContaBancariaDAO | — |
+| 2. Receitas           | T_SF_RECEITA, T_SF_CATEGORIA       | Receita, Categoria + CategoriaDAO | receitas.html |
+| 3. Gastos             | T_SF_GASTO, T_SF_CATEGORIA         | Gasto + GastoDAO | gastos.html     |
 | 4. Dívidas            | T_SF_DIVIDA, T_SF_PARCELA          | Divida          | dividas.html     |
 | 5. Metas              | T_SF_META, T_SF_APORTE_META        | Meta            | metas.html       |
-| Investimentos (Fase 6)| T_SF_INVESTIMENTO                  | —               | —                |
+| Investimentos (Fase 6)| T_SF_INVESTIMENTO                  | Investimento + InvestimentoDAO | — |
 | (visão consolidada)   | todas                              | —               | index.html       |
 
-Lacunas conhecidas: `T_SF_CATEGORIA`, `T_SF_PARCELA` e `T_SF_APORTE_META` ainda não
-têm classe Java; `Investimento.java` e a tela de investimentos ainda não existem;
-não existe tela de cadastro de perfil.
+Lacunas conhecidas: `T_SF_PARCELA` e `T_SF_APORTE_META` ainda não têm classe Java;
+`Receita`, `Divida` e `Meta` ainda não têm DAO; a tela de investimentos e a de
+cadastro de perfil não existem; os DAOs só têm `insert()` e `getAll()` (sem
+update/delete/busca por id).
 
 ## Como executar
 
 Front-end: abrir `frontend/index.html` no navegador (Tailwind via CDN — requer internet).
 
-Back-end (JDK 25+; o projeto IntelliJ usa language level 25):
+Back-end (Java 17 ou 21, exigido pela Fase 7; o projeto IntelliJ usa language level 21):
 ```bash
 cd backend
-javac -encoding UTF-8 -d out src/*.java
-java -cp out Main
+javac -encoding UTF-8 -cp "lib/*" -d out src/*.java
+java -cp "out;lib/ojdbc11.jar" Main      # demonstração sem banco (no Linux/macOS use ':' no lugar de ';')
+java -cp "out;lib/ojdbc11.jar" Teste     # DAOs contra o Oracle (precisa da conexão configurada)
 ```
-Ou abrir a pasta `backend/` no IntelliJ e executar `Main`.
+Conexão: copie `backend/db.properties.example` para `backend/db.properties` e preencha
+`url`, `user` e `password` (Oracle FIAP: `jdbc:oracle:thin:@ORACLE.FIAP.COM.BR:1521:ORCL`,
+usuário = RM). Alternativa: variáveis `DB_URL`, `DB_USER`, `DB_PASSWORD`. O `Teste` grava
+registros reais (e-mails únicos por horário) e termina com código 0 se todas as
+verificações passarem. Ou abrir a pasta `backend/` no IntelliJ e executar `Main` ou `Teste`.
 
 Banco de dados (na raiz; Docker Engine no WSL2 e Oracle Free em execução):
 ```bash
@@ -125,5 +146,10 @@ locais estão em `database/README.md`.
   devem virar parâmetros `?` de `PreparedStatement`.
 - Front-end: layout via classes Tailwind no HTML; `css/styles.css` só para
   melhorias globais. Cores da marca: `brand #15454e`, `emerald2 #10b981`.
+- Java (DAO): um `<Entidade>DAO` por tabela, SQL com `?` em `PreparedStatement` e
+  colunas explícitas (sem `SELECT *`; `senha` nunca é lida), try-with-resources, erros
+  de `SQLException` convertidos em `DaoException` via `DaoException.de(...)`, domínios
+  normalizados por `Dominios.normalizar` e dinheiro em `BigDecimal`.
+- Credenciais do banco nunca vão para o git (`backend/db.properties` e `database/.env.local`).
 - Artefatos gerados (`backend/out/`, `*.class`) não são versionados.
 - Novos documentos de análise vão em `docs/NN-<tema>/`, mantendo a numeração por fase.
